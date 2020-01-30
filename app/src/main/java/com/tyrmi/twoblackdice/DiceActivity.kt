@@ -24,6 +24,7 @@ class DiceActivity : AppCompatActivity() {
         // Screen on forever
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
+        // TODO: USe multiple XML to make it more sturdy
         // Get selected number of dice
         if (intent.getIntExtra("num", 2) == 2) {
             // Show second dice
@@ -54,7 +55,7 @@ class DiceActivity : AppCompatActivity() {
             // Temporarily disable button if animation runs
             diceScreen.isClickable = false
             // TODO: Make sure this is safe
-            Handler().postDelayed(makeClickableAfterDelay, 3000)
+            Handler().postDelayed(makeClickableAfterDelay, 1500)
 
             // Play sound
 
