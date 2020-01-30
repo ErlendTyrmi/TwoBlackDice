@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Two Black Dice</string>
+    <string name="one_dice">ONE DICE</string>
+    <string name="two_dice">TWO DICE</string>
 </resources>
