@@ -2,4 +2,7 @@
     <string name="app_name">Two Black Dice</string>
     <string name="one_dice">ONE DICE</string>
     <string name="two_dice">TWO DICE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

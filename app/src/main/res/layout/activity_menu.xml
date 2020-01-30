@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".MainActivity">
+    tools:context=".MenuActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"
@@ -37,6 +37,7 @@
         app:layout_constraintGuide_percent="0.9" />
 
     <LinearLayout
+        android:id="@+id/dice"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="2"
@@ -47,7 +48,7 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineTop">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/topDieSelect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -55,7 +56,7 @@
             app:srcCompat="@drawable/onedie" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/bottomDieSelect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
