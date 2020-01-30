@@ -14,7 +14,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,22 +24,12 @@
             android:id="@+id/chooseOne"
             android:layout_width="230px"
             android:layout_height="500px"
-            app:srcCompat="@drawable/oneblackdie" />
-
-        <View
-            android:id="@+id/sepline"
-            android:layout_width="2sp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8sp"
-            android:layout_marginTop="16sp"
-            android:layout_marginEnd="8sp"
-            android:layout_marginBottom="16sp"
-            android:background="#000000" />
+            app:srcCompat="@drawable/onedie" />
 
         <ImageView
             android:id="@+id/chooseTwo"
             android:layout_width="230px"
             android:layout_height="500px"
-            app:srcCompat="@drawable/twoblackdice" />
+            app:srcCompat="@drawable/twodice" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
