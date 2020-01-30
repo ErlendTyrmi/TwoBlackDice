@@ -1,12 +1,19 @@
 package com.tyrmi.twoblackdice
 
+import android.animation.ValueAnimator
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_dice.*
+import java.sql.Timestamp
 import kotlin.random.Random
+
 
 class DiceActivity : AppCompatActivity() {
 
@@ -14,6 +21,10 @@ class DiceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dice)
 
+        // Screen on forever
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+        // Get selected number of dice
         if (intent.getIntExtra("num", 2) == 2) {
             // Show second dice
             secondDie.visibility = View.VISIBLE
@@ -21,17 +32,47 @@ class DiceActivity : AppCompatActivity() {
             secondDie.visibility = View.GONE
         }
 
-        // fade in dice?
+        // Setuo animations "flash"
+        val anim1 = ValueAnimator.ofArgb(Color.BLACK, Color.WHITE)
+        anim1.addUpdateListener { valueAnimator -> flasher.setBackgroundColor(valueAnimator.animatedValue as Int) }
+        anim1.duration = 30
 
+        val anim2 = ValueAnimator.ofArgb(Color.WHITE, Color.BLACK)
+        anim2.addUpdateListener { valueAnimator -> flasher.setBackgroundColor(valueAnimator.animatedValue as Int) }
+        anim2.duration = 400
+
+        val fadein = AnimationUtils.loadAnimation(this, R.anim.fadein)
+
+        val makeClickableAfterDelay = Runnable {
+            diceScreen.isClickable = true
+        }
 
         // Onclick roll dice and update view
         diceScreen.setOnClickListener {
+            val thisRoll = Timestamp(System.currentTimeMillis())
 
+            // Temporarily disable button if animation runs
+            diceScreen.isClickable = false
+            // TODO: Make sure this is safe
+            Handler().postDelayed(makeClickableAfterDelay, 3000)
+
+            // Play sound
+
+            // Run animations
+            dice.visibility = View.INVISIBLE
+            anim1.start()
+            anim2.startDelay = 42
+            anim2.start()
+            dice.startAnimation(fadein)
+            dice.visibility = View.VISIBLE
+
+            // Update dice
             firstDie.setImageResource(getNewRollImageId())
 
             if (secondDie.isVisible) {
                 secondDie.setImageResource(getNewRollImageId())
             }
+
         }
 
     }
@@ -53,4 +94,14 @@ class DiceActivity : AppCompatActivity() {
     fun roll(): Int {
         return Random.nextInt(1, 7)
     }
+
+    // Overridden to make animated transition back to menu
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+
+        AnimationUtils.loadAnimation(applicationContext, R.anim.fadein)
+    }
+
 }

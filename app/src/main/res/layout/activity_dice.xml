@@ -5,8 +5,19 @@
     android:id="@+id/diceScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000001"
-    tools:context=".DiceActivity">
+    android:background="#000000"
+    tools:context=".DiceActivity"
+    tools:visibility="visible">
+
+    <LinearLayout
+        android:id="@+id/flasher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"
@@ -42,6 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/guideLineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"

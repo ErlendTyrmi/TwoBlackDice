@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#EEFFFFFF"
     tools:context=".MenuActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -37,7 +37,7 @@
         app:layout_constraintGuide_percent="0.9" />
 
     <LinearLayout
-        android:id="@+id/dice"
+        android:id="@+id/menu"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="2"
@@ -45,7 +45,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideLineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop">
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/topDieSelect"
@@ -53,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="@string/one_dice"
+            android:adjustViewBounds="true"
             app:srcCompat="@drawable/onedie" />
 
         <ImageView
@@ -61,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="@string/two_dice"
+            android:adjustViewBounds="true"
             app:srcCompat="@drawable/twodice" />
 
     </LinearLayout>
