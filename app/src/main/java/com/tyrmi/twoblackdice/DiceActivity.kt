@@ -70,8 +70,8 @@ class DiceActivity : AppCompatActivity() {
             animationHandler.postDelayed(showDiceAfterUpdate, 120) // Before anim2 starts
             animationHandler.postDelayed(
                 makeClickableAfterDelay,
-                830
-            ) // Not clickable until sound is done
+                880
+            ) // Not clickable until sound is done or you may lose sound
 
             // Play sound
             mediaPlayer?.start()
@@ -128,8 +128,8 @@ class DiceActivity : AppCompatActivity() {
             welcome.visibility = View.INVISIBLE
             diceScreen.isClickable = true
         }
-        Handler().postDelayed(showAnimation, 150)
-        Handler().postDelayed(closeWecomeBox, 800)
+        Handler().postDelayed(showAnimation, 300)
+        Handler().postDelayed(closeWecomeBox, 900)
     }
 
     // Overridden to make animated transition back to menu
