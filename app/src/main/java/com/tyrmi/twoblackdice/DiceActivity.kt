@@ -11,18 +11,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_dice.*
-import java.sql.Timestamp
 import kotlin.random.Random
 
 
 class DiceActivity : AppCompatActivity() {
+    val screenTimeoutHandler = Handler()
+    val animationHandler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dice)
-
-        // Screen on forever
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         // TODO: USe multiple XML to make it more sturdy
         // Get selected number of dice
@@ -33,16 +31,30 @@ class DiceActivity : AppCompatActivity() {
             secondDie.visibility = View.GONE
         }
 
-        // Setuo animations "flash"
-        val anim1 = ValueAnimator.ofArgb(Color.BLACK, Color.WHITE)
+        // Setup animations "flash"
+        val anim1 = ValueAnimator.ofArgb(Color.TRANSPARENT, Color.WHITE)
         anim1.addUpdateListener { valueAnimator -> flasher.setBackgroundColor(valueAnimator.animatedValue as Int) }
         anim1.duration = 30
 
-        val anim2 = ValueAnimator.ofArgb(Color.WHITE, Color.BLACK)
+        val anim2 = ValueAnimator.ofArgb(Color.WHITE, Color.TRANSPARENT)
         anim2.addUpdateListener { valueAnimator -> flasher.setBackgroundColor(valueAnimator.animatedValue as Int) }
         anim2.duration = 400
 
         val fadein = AnimationUtils.loadAnimation(this, R.anim.fadein)
+
+        val postponeScreensaver = Runnable {
+            // Screen on not forever
+            window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        }
+
+        val showDiceAfterUpdate = Runnable {
+            // Update dice
+            firstDie.setImageResource(getNewRollImageId())
+
+            if (secondDie.isVisible) {
+                secondDie.setImageResource(getNewRollImageId())
+            }
+        }
 
         val makeClickableAfterDelay = Runnable {
             diceScreen.isClickable = true
@@ -50,30 +62,25 @@ class DiceActivity : AppCompatActivity() {
 
         // Onclick roll dice and update view
         diceScreen.setOnClickListener {
-            val thisRoll = Timestamp(System.currentTimeMillis())
 
             // Temporarily disable button if animation runs
             diceScreen.isClickable = false
-            // TODO: Make sure this is safe
-            Handler().postDelayed(makeClickableAfterDelay, 1500)
+
+            animationHandler.postDelayed(showDiceAfterUpdate, 42)
+            animationHandler.postDelayed(makeClickableAfterDelay, 501)
 
             // Play sound
+            // Preferably 1/2 second long, so the player has a cue for when the dice is useable again?
 
             // Run animations
-            dice.visibility = View.INVISIBLE
             anim1.start()
-            anim2.startDelay = 42
+            anim2.startDelay = 300
             anim2.start()
-            dice.startAnimation(fadein)
-            dice.visibility = View.VISIBLE
 
-            // Update dice
-            firstDie.setImageResource(getNewRollImageId())
-
-            if (secondDie.isVisible) {
-                secondDie.setImageResource(getNewRollImageId())
-            }
-
+            // Set screen always on and set new countdown
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            screenTimeoutHandler.removeCallbacks(postponeScreensaver)
+            screenTimeoutHandler.postDelayed(postponeScreensaver, 180000) // 3 min
         }
 
     }
@@ -81,12 +88,12 @@ class DiceActivity : AppCompatActivity() {
     // Returns an image ID based on a roll
     fun getNewRollImageId(): Int {
         when (roll()) {
-            1 -> return R.drawable.done
-            2 -> return R.drawable.dtwo
-            3 -> return R.drawable.dthree
-            4 -> return R.drawable.dfour
-            5 -> return R.drawable.dfive
-            6 -> return R.drawable.dsix
+            1 -> return R.drawable.one
+            2 -> return R.drawable.two
+            3 -> return R.drawable.three
+            4 -> return R.drawable.four
+            5 -> return R.drawable.five
+            6 -> return R.drawable.six
             else -> Toast.makeText(this, "Error, please write a review.", Toast.LENGTH_LONG).show()
         }
         return R.drawable.twodice

@@ -9,16 +9,6 @@
     tools:context=".DiceActivity"
     tools:visibility="visible">
 
-    <LinearLayout
-        android:id="@+id/flasher"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"
         android:layout_width="wrap_content"
@@ -66,7 +56,7 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:contentDescription="@string/one_dice"
-            app:srcCompat="@drawable/done" />
+            app:srcCompat="@drawable/one" />
 
         <ImageView
             android:id="@+id/secondDie"
@@ -75,8 +65,18 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:contentDescription="@string/two_dice"
-            app:srcCompat="@drawable/dtwo" />
+            app:srcCompat="@drawable/two" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/flasher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
