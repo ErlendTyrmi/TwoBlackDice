@@ -2,6 +2,8 @@ package com.tyrmi.twoblackdice
 
 import android.animation.ValueAnimator
 import android.graphics.Color
+import android.graphics.drawable.Animatable
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -22,7 +24,6 @@ class DiceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dice)
 
-        // TODO: USe multiple XML to make it more sturdy
         // Get selected number of dice
         if (intent.getIntExtra("num", 2) == 2) {
             // Show second dice
@@ -39,8 +40,6 @@ class DiceActivity : AppCompatActivity() {
         val anim2 = ValueAnimator.ofArgb(Color.WHITE, Color.TRANSPARENT)
         anim2.addUpdateListener { valueAnimator -> flasher.setBackgroundColor(valueAnimator.animatedValue as Int) }
         anim2.duration = 400
-
-        val fadein = AnimationUtils.loadAnimation(this, R.anim.fadein)
 
         val postponeScreensaver = Runnable {
             // Screen on not forever
@@ -60,22 +59,28 @@ class DiceActivity : AppCompatActivity() {
             diceScreen.isClickable = true
         }
 
+        var mediaPlayer: MediaPlayer? = MediaPlayer.create(applicationContext, R.raw.dice)
+
         // Onclick roll dice and update view
         diceScreen.setOnClickListener {
 
             // Temporarily disable button if animation runs
             diceScreen.isClickable = false
 
-            animationHandler.postDelayed(showDiceAfterUpdate, 42)
-            animationHandler.postDelayed(makeClickableAfterDelay, 501)
+            animationHandler.postDelayed(showDiceAfterUpdate, 120) // Before anim2 starts
+            animationHandler.postDelayed(
+                makeClickableAfterDelay,
+                1400
+            ) // Not clickable until sound is done
 
             // Play sound
-            // Preferably 1/2 second long, so the player has a cue for when the dice is useable again?
+            mediaPlayer?.start()
 
             // Run animations
             anim1.start()
-            anim2.startDelay = 300
+            anim2.startDelay = 200
             anim2.start()
+
 
             // Set screen always on and set new countdown
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -101,6 +106,27 @@ class DiceActivity : AppCompatActivity() {
 
     fun roll(): Int {
         return Random.nextInt(1, 7)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Setup animation
+        welcome.visibility = View.VISIBLE
+        animBox.setBackgroundResource(R.drawable.diceanim)
+        val rocketAnimation = animBox.background
+
+        val showAnimation = Runnable {
+            if (rocketAnimation is Animatable) {
+                rocketAnimation.start()
+            }
+        }
+        val closeWecomeBox = Runnable {
+            welcome.visibility = View.INVISIBLE
+        }
+        Handler().postDelayed(showAnimation, 100)
+        Handler().postDelayed(closeWecomeBox, 800)
+
     }
 
     // Overridden to make animated transition back to menu
