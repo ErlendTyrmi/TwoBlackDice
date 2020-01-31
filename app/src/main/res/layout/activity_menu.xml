@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFFFF"
+    android:background="#5E5353"
     tools:context=".MenuActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.92" />
 
     <LinearLayout
         android:id="@+id/menu"
@@ -53,8 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:contentDescription="@string/one_dice"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/one_dice"
             app:srcCompat="@drawable/onedie" />
 
         <ImageView
@@ -62,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:contentDescription="@string/two_dice"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/two_dice"
             app:srcCompat="@drawable/twodice" />
 
     </LinearLayout>

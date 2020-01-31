@@ -70,7 +70,7 @@ class DiceActivity : AppCompatActivity() {
             animationHandler.postDelayed(showDiceAfterUpdate, 120) // Before anim2 starts
             animationHandler.postDelayed(
                 makeClickableAfterDelay,
-                1400
+                1350
             ) // Not clickable until sound is done
 
             // Play sound
@@ -111,22 +111,25 @@ class DiceActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        // Temporarily disable click
+        diceScreen.isClickable = false
+
         // Setup animation
         welcome.visibility = View.VISIBLE
         animBox.setBackgroundResource(R.drawable.diceanim)
-        val rocketAnimation = animBox.background
+        val logoAnimation = animBox.background
 
         val showAnimation = Runnable {
-            if (rocketAnimation is Animatable) {
-                rocketAnimation.start()
+            if (logoAnimation is Animatable) {
+                logoAnimation.start()
             }
         }
         val closeWecomeBox = Runnable {
             welcome.visibility = View.INVISIBLE
+            diceScreen.isClickable = true
         }
-        Handler().postDelayed(showAnimation, 100)
+        Handler().postDelayed(showAnimation, 150)
         Handler().postDelayed(closeWecomeBox, 800)
-
     }
 
     // Overridden to make animated transition back to menu
