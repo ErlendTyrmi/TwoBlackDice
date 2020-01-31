@@ -70,7 +70,7 @@ class DiceActivity : AppCompatActivity() {
             animationHandler.postDelayed(showDiceAfterUpdate, 120) // Before anim2 starts
             animationHandler.postDelayed(
                 makeClickableAfterDelay,
-                1350
+                830
             ) // Not clickable until sound is done
 
             // Play sound
