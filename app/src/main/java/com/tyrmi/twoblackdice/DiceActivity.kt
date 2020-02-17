@@ -2,7 +2,6 @@ package com.tyrmi.twoblackdice
 
 import android.animation.ValueAnimator
 import android.graphics.Color
-import android.graphics.drawable.Animatable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -43,7 +42,7 @@ class DiceActivity : AppCompatActivity() {
 
         val postponeScreensaver = Runnable {
             // Screen on not forever
-            window.clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
 
         val showDiceAfterUpdate = Runnable {
@@ -83,8 +82,8 @@ class DiceActivity : AppCompatActivity() {
 
 
             // Set screen always on and set new countdown
-            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
             screenTimeoutHandler.removeCallbacks(postponeScreensaver)
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
             screenTimeoutHandler.postDelayed(postponeScreensaver, 180000) // 3 min
         }
 
@@ -108,6 +107,7 @@ class DiceActivity : AppCompatActivity() {
         return Random.nextInt(1, 7)
     }
 
+    /*
     override fun onStart() {
         super.onStart()
 
@@ -131,6 +131,7 @@ class DiceActivity : AppCompatActivity() {
         Handler().postDelayed(showAnimation, 300)
         Handler().postDelayed(closeWecomeBox, 900)
     }
+    */
 
     // Overridden to make animated transition back to menu
     override fun onBackPressed() {
