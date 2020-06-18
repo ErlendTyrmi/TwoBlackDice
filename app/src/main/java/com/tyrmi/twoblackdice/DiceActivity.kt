@@ -107,32 +107,6 @@ class DiceActivity : AppCompatActivity() {
         return Random.nextInt(1, 7)
     }
 
-    /*
-    override fun onStart() {
-        super.onStart()
-
-        // Temporarily disable click
-        diceScreen.isClickable = false
-
-        // Setup animation
-        welcome.visibility = View.VISIBLE
-        animBox.setBackgroundResource(R.drawable.diceanim)
-        val logoAnimation = animBox.background
-
-        val showAnimation = Runnable {
-            if (logoAnimation is Animatable) {
-                logoAnimation.start()
-            }
-        }
-        val closeWecomeBox = Runnable {
-            welcome.visibility = View.INVISIBLE
-            diceScreen.isClickable = true
-        }
-        Handler().postDelayed(showAnimation, 300)
-        Handler().postDelayed(closeWecomeBox, 900)
-    }
-    */
-
     // Overridden to make animated transition back to menu
     override fun onBackPressed() {
         super.onBackPressed()
